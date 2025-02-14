@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}
+Virtual Classroom Management System - New Assignment
+{% endblock %}
+
+{% block content %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dashboard_style.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='new_items_style.css')}}">
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Set the minimum date to today's date
+        let today = new Date().toISOString().split("T")[0];
+        document.getElementById("end_date").setAttribute("min", today);
+        
+        document.getElementById("form").addEventListener("submit", function(event) {
+            let dueDate = document.getElementById("end_date").value;
+            if (!dueDate) {
+                alert("Please select a valid due date.");
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+    });
+  </script>
+</head>
+
+<main class="container py-5">
+  <center>
+    <h2 class="m-4 text-gradient">New Assignment</h2>
+  </center>
+  <form id="form" method="POST">
+    <div class="form-group">
+      <input type="text" class="form-control" id="assignment_title" name="assignment_title" placeholder="Assignment Title" required>
+    </div>
+    <div class="form-group">
+      <textarea class="form-control" id="assignment_desc" name="assignment_desc" placeholder="Assignment Description" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="end_date">Due Date</label>
+      <input type="date" class="form-control" id="end_date" name="end_date" required>
+    </div>
+    <center>
+      <div>
+        <button type="submit" class="btn btn-primary m-3">Create</button>
+      </div>
+    </center>
+  </form>
+</main>
+{% endblock %}

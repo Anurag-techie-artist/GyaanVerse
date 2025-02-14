@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}
+Virtual Classroom Management System - Login
+{% endblock %}
+
+{% block content %}
+
+<head>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login_style.css')}}">
+</head>
+<div class="container">
+	{% with flash_messages=get_flashed_messages() %}
+    {% if flash_messages %}
+        {% for message in flash_messages %}
+            <div class="alert alert-info" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+	<lord-icon src="https://cdn.lordicon.com/mjmrmyzg.json" trigger="hover" colors="primary:#30c9e8,secondary:#bcee66"
+		style="width:150px;height:150px">
+	</lord-icon>
+	<h2>LOGIN</h2>
+	
+	{% if error %}
+	<div class="alert alert-danger" role="alert">
+		{{ error }}
+	</div>
+	{% endif %}
+
+	<!-- Correct Form Submission -->
+	<form method="POST" action="{{ url_for('login') }}">
+		<div class="form-group">
+			<input type="text" name="username" class="form-control" placeholder="Username" required>
+		</div>
+		<div class="form-group">
+			<input type="password" name="password" class="form-control" placeholder="Password" required>
+		</div>
+		<button type="submit" class="btn btn-light form_btn">Log In</button>
+	</form>
+
+	<!-- Register Button as a Link (Not a Form) -->
+	<div class="or-separator">
+		<span>OR</span>
+	</div>
+	<a href="{{ url_for('register') }}" class="btn btn-light form_btn">SIGNUP</a>
+
+	<div class="footer-link">
+		<a href="/">Home</a>
+		<span class="mx-2">·</span>
+		<a href="#">Blog</a>
+		<span class="mx-2">·</span>
+		<a href="#">About</a>
+	</div>
+</div>
+
+{% endblock %}
